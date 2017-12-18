@@ -1,0 +1,7 @@
+base_duration: 基本时长 
+base_cost : 基本费用 
+unit_cost : 单位费用
+status` : 状态
+descr : 资费说明
+startime : 开通时间
+cost_type : 资费类型
