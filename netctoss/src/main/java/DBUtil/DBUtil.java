@@ -37,7 +37,6 @@ public class DBUtil {
             ds.setPassword(password);
             ds.setInitialSize(new Integer(initsize));
             ds.setMaxActive(new Integer(maxsize));
-
         }catch (IOException e) {
             e.printStackTrace();
             //抛出异常

@@ -2,6 +2,7 @@ package Entity;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
 public class Cost implements Serializable {
 
@@ -15,6 +16,8 @@ public class Cost implements Serializable {
 	private Timestamp creatime;//创建时间
 	private Timestamp startime;//开通时间
 	private String costType;//资费类型
+	
+	SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	
 	
 	public Integer getCostID() {
@@ -59,15 +62,19 @@ public class Cost implements Serializable {
 	public void setDescr(String descr) {
 		this.descr = descr;
 	}
-	public Timestamp getCreatime() {
-		return creatime;
+	public String getCreatime() {
+		return sf.format(creatime);
 	}
 	public void setCreatime(Timestamp creatime) {
 		this.creatime = creatime;
 	}
-	public Timestamp getStartime() {
-		return startime;
-	}
+	//增加判空
+	public String getStartime() {
+		if(startime==null) {
+			return "暂未开始使用";
+		}else {
+		return sf.format(startime);
+	}}
 	public void setStartime(Timestamp startime) {
 		this.startime = startime;
 	}
