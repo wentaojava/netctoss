@@ -1,13 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>查询资费界面</title>
-        <link type="text/css" rel="stylesheet" media="all" href="../styles/global.css" />
-        <link type="text/css" rel="stylesheet" media="all" href="../styles/global_color.css" />
-        <script src="../js/jquery-1.11.1.js"></script>
+        <link type="text/css" rel="stylesheet" media="all" href="styles/global.css" />
+        <link type="text/css" rel="stylesheet" media="all" href="styles/global_color.css" />
+        <script src="js/jquery-1.11.1.js"></script>
         
         <script language="javascript" type="text/javascript">
             //排序按钮的点击事件
@@ -32,7 +33,7 @@
     <body>
         <!--Logo区域开始-->
         <div id="header">
-            <img src="../images/logo.png" alt="logo" class="left"/>
+            <img src="images/logo.png" alt="logo" class="left"/>
             <a href="#">[退出]</a>            
         </div>
         <!--Logo区域结束-->
@@ -66,7 +67,7 @@
                 </div> 
                 <!--启用操作的操作提示-->
                 <div id="operate_result_info" class="operate_success">
-                    <img src="../images/close.png" onclick="this.parentNode.style.display='none';" />
+                    <img src="images/close.png" onclick="this.parentNode.style.display='none';" />
                     删除成功！
                 </div>    
                 <!--数据区域：用表格展示数据-->     
@@ -82,34 +83,27 @@
                             <th>开通时间</th>
                             <th class="width50">状态</th>
                             <th class="width200"></th>
-                        </tr>                      
+                        </tr>  
+                        <c:forEach items="${costsList }" var="c">                   
                         <tr>
-                            <td>1</td>
-                            <td><a href="fee_detail.html">包 20 小时</a></td>
-                            <td>20 小时</td>
-                            <td>24.50 元</td>
-                            <td>3.00 元/小时</td>
-                            <td>2013/01/01 00:00:00</td>
-                            <td></td>
-                            <td>暂停</td>
+                            <td>${c.costID }</td>
+                            <td><a href="fee_detail.html">${c.name }</a></td>
+                            <td>${c.baseDuraction }</td>
+                            <td>${c.baseCost }</td>
+                            <td>${c.unitCost }</td>
+                            <td>${c.creatime }</td>
+                            <td>${c.startime }</td>
+                            <td>
+                            	<c:if test="${c.status==0 }">开通</c:if>
+                            	<c:if test="${c.status==1 }">暂停</c:if>
+                            </td>
                             <td>                                
                                 <input type="button" value="启用" class="btn_start" onclick="startFee();" />
                                 <input type="button" value="修改" class="btn_modify" onclick="location.href='fee_modi.html';" />
                                 <input type="button" value="删除" class="btn_delete" onclick="deleteFee();" />
                             </td>
                         </tr>
-                        <tr>
-                            <td>2</td>
-                            <td><a href="fee_detail.html">包 40 小时</a></td>
-                            <td>40 小时</td>
-                            <td>40.50 元</td>
-                            <td>3.00 元/小时</td>
-                            <td>2013/01/21 00:00:00</td>
-                            <td>2013/01/23 00:00:00</td>
-                            <td>开通</td>
-                            <td>                                
-                            </td>
-                        </tr>
+                        </c:forEach>                    
                     </table>
                     <p>业务说明：<br />
                     1、创建资费时，状态为暂停，记载创建时间；<br />
