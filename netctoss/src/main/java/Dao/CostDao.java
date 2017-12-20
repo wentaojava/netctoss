@@ -57,4 +57,38 @@ public class CostDao implements Serializable {
 			DBUtil.closeConnection(findCostConn);
 		}	
 	}
+	
+	/**新增资费方法
+	 * @author wentao
+	 * @param cost
+	 */
+	public void addCost(Cost cost){
+		Connection addCostConn=null;
+		try {
+			addCostConn=DBUtil.getConnection();
+			addCostConn.setAutoCommit(false);
+			String addCoset="INSERT INTO COST (NAME,BASE_DURATION,BASE_COST,UNIT_COST,STATUS,DESCR,STARTIME,COST_TYPE) "
+					+ "VALUES(?,?,?,?,'0',?,'0000-00-00',?)";
+			PreparedStatement smt=addCostConn.prepareStatement(addCoset);
+			smt.setString(1, cost.getName());
+			//setInt,setDouble不允许传入null,
+			//但实际业务中该字段却是可能为null,
+			//并且数据库也支持为null,可以将
+			//这样的字段当做Object处理
+			smt.setObject(2, cost.getBaseDuraction());
+			smt.setObject(3, cost.getBaseCost());
+			smt.setObject(4, cost.getUnitCost());
+			smt.setString(5, cost.getDescr());
+			smt.setString(6,cost.getCostType());
+			smt.executeUpdate();	
+			addCostConn.commit();	
+		} catch (SQLException e) {
+			DBUtil.rollBack(addCostConn);
+			e.printStackTrace();
+			throw new RuntimeException("新增资费信息失败",e);
+		}finally{
+			DBUtil.closeConnection(addCostConn);
+		}
+		
+	}
 }
