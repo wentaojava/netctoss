@@ -63,7 +63,7 @@
                         <input type="button" value="基费" class="sort_asc" onclick="sort(this);" />
                         <input type="button" value="时长" class="sort_asc" onclick="sort(this);" />-->
                     </div>
-                    <input type="button" value="增加" class="btn_add" onclick="location.href='fee_add.html';" />
+                    <input type="button" value="增加" class="btn_add" onclick="location.href='feeAdd.costmain';" />
                 </div> 
                 <!--启用操作的操作提示-->
                 <div id="operate_result_info" class="operate_success">
@@ -94,8 +94,8 @@
                             <td>${c.creatime }</td>
                             <td>${c.startime }</td>
                             <td>
-                            	<c:if test="${c.status==0 }">开通</c:if>
-                            	<c:if test="${c.status==1 }">暂停</c:if>
+                            	<c:if test="${c.status==0 }">暂停</c:if>
+                            	<c:if test="${c.status==1 }">开通</c:if>
                             </td>
                             <td>                                
                                 <input type="button" value="启用" class="btn_start" onclick="startFee();" />

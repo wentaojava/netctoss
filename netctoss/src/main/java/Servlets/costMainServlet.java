@@ -29,6 +29,9 @@ public class costMainServlet extends HttpServlet {
 		List<Cost> costsList=costs.findAllCost();
 		request.setAttribute("costsList", costsList);
 		request.getRequestDispatcher("/WEB-INF/fee/fee_list.jsp").forward(request, response);
-	}
+	    }
+		if(servletPath.equals("/feeAdd.costmain")) {
+			response.sendRedirect("WEB-INF/fee/fee_add.jsp");
+		}
 	}
 }
