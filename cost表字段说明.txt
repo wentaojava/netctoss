@@ -5,4 +5,9 @@ status` : 状态
 descr : 资费说明
 creattime:创建时间
 startime : 开通时间
-cost_type : 资费类型
+cost_type : 资费类型(1:包月；2：套餐；3：计时)
+
+
+
+alter table cost auto_increment=1;
+表中删除数据后再补运行，下次添加时ID就会连续
