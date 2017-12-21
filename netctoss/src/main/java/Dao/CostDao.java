@@ -89,21 +89,33 @@ public class CostDao implements Serializable {
 		}
 	}
 	
+	/**根据ID查询资费信息的name,cost_type,base_duration,base_cost,unit_cost,descr
+	 * @author wentao
+	 * @param costID
+	 * @return Cost对象
+	 */
 	public Cost findBycostID(String costID) {
 		Integer ID=Integer.valueOf(costID);
 		Connection findBycostIDconn=null;
 		try {
 			findBycostIDconn=DBUtil.getConnection();
 			findBycostIDconn.setAutoCommit(false);
-			String findBycostIDSQL="select name from cost where name=?";
+			String findBycostIDSQL="select name,cost_type,base_duration,base_cost,unit_cost,descr from cost where cost_id=?";
 			PreparedStatement smt=findBycostIDconn.prepareStatement(findBycostIDSQL);
 			smt.setInt(1, ID);
 			ResultSet result=smt.executeQuery();
 			findBycostIDconn.commit();
-			while(result.next()) {
-				Cost c=new Cost();
-				c.setName(result.getString(1));
+			Cost c=new Cost();
+			if(result.next()) {
+				c.setCostID(ID);
+				c.setName(result.getString("name"));
+				c.setCostType(result.getString("cost_type"));
+				c.setBaseDuraction(result.getInt("base_duration"));
+				c.setBaseCost(result.getDouble("base_cost"));
+				c.setUnitCost(result.getDouble("unit_cost"));
+				c.setDescr(result.getString("descr"));	
 			}
+			return c;
 		} catch (SQLException e) {
 			DBUtil.rollBack(findBycostIDconn);
 			e.printStackTrace();
@@ -143,7 +155,71 @@ public class CostDao implements Serializable {
 			throw new RuntimeException("新增资费信息失败",e);
 		}finally{
 			DBUtil.closeConnection(addCostConn);
+		}	
+	}
+	
+	/**根据资费ID修改资费信息方法
+	 * @author wentao
+	 * @param cost
+	 */
+	public void editCost(Cost cost){
+		Connection editCostConn=null;
+		try {
+			editCostConn=DBUtil.getConnection();
+			editCostConn.setAutoCommit(false);
+			String editCoset="UPDATE COST SET NAME=?,BASE_DURATION=?,BASE_COST=?,UNIT_COST=?,DESCR=?,COST_TYPE=? "
+					+ "WHERE COST_ID=?";
+			PreparedStatement smt=editCostConn.prepareStatement(editCoset);
+			smt.setString(1, cost.getName());
+			//setInt,setDouble不允许传入null,
+			//但实际业务中该字段却是可能为null,
+			//并且数据库也支持为null,可以将
+			//这样的字段当做Object处理
+			smt.setObject(2, cost.getBaseDuraction());
+			smt.setObject(3, cost.getBaseCost());
+			smt.setObject(4, cost.getUnitCost());
+			smt.setString(5, cost.getDescr());
+			smt.setString(6,cost.getCostType());
+			smt.setInt(7, cost.getCostID());
+			smt.executeUpdate();	
+			editCostConn.commit();	
+		} catch (SQLException e) {
+			DBUtil.rollBack(editCostConn);
+			e.printStackTrace();
+			throw new RuntimeException("修改资费信息失败",e);
+		}finally{
+			DBUtil.closeConnection(editCostConn);
+		}	
+	}
+
+	/**根据ID删除资费信息
+	 * @author wentao
+	 * @param id
+	 */
+	public void deleteFee(Integer id) {
+		//System.out.println("deleteFee");
+		Connection deleteCostConn=null;
+		try {
+			deleteCostConn=DBUtil.getConnection();
+			deleteCostConn.setAutoCommit(false);
+			String deleteCostSQL="DELETE FROM COST WHERE COST_ID=?";
+			PreparedStatement smt=deleteCostConn.prepareStatement(deleteCostSQL);
+			smt.setInt(1, id);
+			if(smt.executeUpdate()==1){
+				String resetCostidSQL="ALTER TABLE COST AUTO_INCREMENT=1";
+				PreparedStatement smt1=deleteCostConn.prepareStatement(resetCostidSQL);
+				smt1.executeUpdate();
+			}
+			deleteCostConn.commit();
+		} catch (SQLException e) {
+			DBUtil.rollBack(deleteCostConn);
+			e.printStackTrace();
+			throw new RuntimeException("删除资费信息失败",e);
+		}finally{
+			DBUtil.closeConnection(deleteCostConn);
 		}
 		
 	}
+	
+	
 }

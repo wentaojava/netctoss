@@ -13,14 +13,17 @@
         <script language="javascript" type="text/javascript">
         function editButton(status,costID){
         	//var status=$(btn).parent().prev().text();
-        	console.log(status);
-        	console.log(costID);
+        	//console.log(status);
+        	//console.log(costID);
         	if(status==1){
         		//console.log("该资费已开通，不可修改");
-        		window.alert("该资费已开通，不可修改");
+        			window.alert("该资费已开通，不可修改");
         	}else{
         		//console.log("该资费已暂停");
-        		location.href='toFeeEdit.costmain?costID='+costID;
+        		var r = window.confirm("确定要修改此资费吗？");
+        		if(r){
+        			location.href='toFeeEdit.costmain?costID='+costID;
+        		}
         	} 
         }
             //排序按钮的点击事件
@@ -34,11 +37,21 @@
             //启用
             function startFee() {
                 var r = window.confirm("确定要启用此资费吗？资费启用后将不能修改和删除。");
+                if(r){
                 document.getElementById("operate_result_info").style.display = "block";
-            }
+            }}
             //删除
-            function deleteFee() {
-                var r = window.confirm("确定要删除此资费吗？");
+            function deleteFee(status,costID) {
+            	if(status==1){
+            		//console.log("该资费已开通，不可修改");
+            			window.alert("该资费已开通，不可删除");
+            		}else{
+            		//console.log("该资费已暂停");
+            			var r = window.confirm("确定要删除此资费吗？");
+            			if(r){
+            			location.href='FeeDelete.costmain?costID='+costID;
+            		}
+            	} 
             }
         </script>        
     </head>
@@ -80,7 +93,7 @@
                 <!--启用操作的操作提示-->
                 <div id="operate_result_info" class="operate_success">
                     <img src="images/close.png" onclick="this.parentNode.style.display='none';" />
-                    删除成功！
+                    启用成功！
                 </div>    
                 <!--数据区域：用表格展示数据-->     
                 <div id="data">            
@@ -112,7 +125,7 @@
                             <td>                                
                                 <input type="button" value="启用" class="btn_start" onclick="startFee();" />
                                 <input type="button" value="修改" class="btn_modify" onclick="editButton(${c.status},${c.costID });" />
-                                <input type="button" value="删除" class="btn_delete" onclick="deleteFee();" />
+                                <input type="button" value="删除" class="btn_delete" onclick="deleteFee(${c.status},${c.costID });" />
                             </td>
                         </tr>
                         </c:forEach>                    
