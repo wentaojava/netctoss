@@ -11,6 +11,18 @@
         <script src="js/jquery-1.11.1.js"></script>
         
         <script language="javascript" type="text/javascript">
+        function editButton(status,costID){
+        	//var status=$(btn).parent().prev().text();
+        	console.log(status);
+        	console.log(costID);
+        	if(status==1){
+        		//console.log("该资费已开通，不可修改");
+        		window.alert("该资费已开通，不可修改");
+        	}else{
+        		//console.log("该资费已暂停");
+        		location.href='toFeeEdit.costmain?costID='+costID;
+        	} 
+        }
             //排序按钮的点击事件
             function sort(btnObj) {
                 if (btnObj.className == "sort_desc")
@@ -99,7 +111,7 @@
                             </td>
                             <td>                                
                                 <input type="button" value="启用" class="btn_start" onclick="startFee();" />
-                                <input type="button" value="修改" class="btn_modify" onclick="location.href='fee_modi.html';" />
+                                <input type="button" value="修改" class="btn_modify" onclick="editButton(${c.status},${c.costID });" />
                                 <input type="button" value="删除" class="btn_delete" onclick="deleteFee();" />
                             </td>
                         </tr>
@@ -126,8 +138,8 @@
         </div>
         <!--主要区域结束-->
         <div id="footer">
-            <p>[源自北美的技术，最优秀的师资，最真实的企业环境，最适用的实战项目]</p>
-            <p>版权所有(C)加拿大达内IT培训集团公司 </p>
+            <p>[熟悉MVC模式]</p>
+           
         </div>
     </body>
 </html>

@@ -58,6 +58,61 @@ public class CostDao implements Serializable {
 		}	
 	}
 	
+	/**根据名称查重
+	 * @author wentao
+	 * @param 
+	 * @throws 
+	 * @param Name
+	 * @return boolean 名称存在返回true
+	 */
+	public boolean findByName(String Name) {
+		Connection conn=null;
+		try {
+			conn=DBUtil.getConnection();
+			conn.setAutoCommit(false);
+			String findByNameSQL="select name from cost where name=?";
+			PreparedStatement smt=conn.prepareStatement(findByNameSQL);
+			smt.setString(1, Name);
+			ResultSet isHasName=smt.executeQuery();
+			conn.commit();
+			if(isHasName.next()) {
+				return true;
+			}else {
+				return false;
+			}	
+		} catch (SQLException e) {
+			DBUtil.rollBack(conn);
+			e.printStackTrace();
+			throw new RuntimeException("查询名称是否重复失败",e);
+		}finally {
+			DBUtil.closeConnection(conn);
+		}
+	}
+	
+	public Cost findBycostID(String costID) {
+		Integer ID=Integer.valueOf(costID);
+		Connection findBycostIDconn=null;
+		try {
+			findBycostIDconn=DBUtil.getConnection();
+			findBycostIDconn.setAutoCommit(false);
+			String findBycostIDSQL="select name from cost where name=?";
+			PreparedStatement smt=findBycostIDconn.prepareStatement(findBycostIDSQL);
+			smt.setInt(1, ID);
+			ResultSet result=smt.executeQuery();
+			findBycostIDconn.commit();
+			while(result.next()) {
+				Cost c=new Cost();
+				c.setName(result.getString(1));
+			}
+		} catch (SQLException e) {
+			DBUtil.rollBack(findBycostIDconn);
+			e.printStackTrace();
+			throw new RuntimeException("根据costID查询信息失败",e);
+		}finally {
+			DBUtil.closeConnection(findBycostIDconn);
+		}
+	}
+	
 	/**新增资费方法
 	 * @author wentao
 	 * @param cost

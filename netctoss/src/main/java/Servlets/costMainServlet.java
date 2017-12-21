@@ -31,10 +31,11 @@ public class costMainServlet extends HttpServlet {
 	    	request.getRequestDispatcher("WEB-INF/fee/fee_add.jsp").forward(request, response);
 		}else if(servletPath.equals("/feeAdd.costmain")){
 			feeAdd(request,response);
+		}else if(servletPath.equals("/toFeeEdit.costmain")) {
+			toFeeEdit(request,response);
 		}
 	}
 	
-
 	/**
 	 * 处理查询资费请求
 	 * @author wentao
@@ -59,6 +60,12 @@ public class costMainServlet extends HttpServlet {
 	 */
 	protected void feeAdd(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		request.setCharacterEncoding("utf-8");
+		CostDao c=new CostDao();
+		boolean isExit=c.findByName(request.getParameter("name"));
+		if(isExit) {
+			request.setAttribute("isExit", isExit);
+			request.getRequestDispatcher("WEB-INF/fee/fee_add.jsp").forward(request, response);
+		}else {
 		Cost cost=new Cost();
 		cost.setName(request.getParameter("name"));
 		cost.setCostType(request.getParameter("costType"));
@@ -66,9 +73,15 @@ public class costMainServlet extends HttpServlet {
 		cost.setBaseCost(Double.valueOf(request.getParameter("baseCost")));
 		cost.setUnitCost(Double.valueOf(request.getParameter("unitCost")));
 		cost.setDescr(request.getParameter("descr"));
-		CostDao c=new CostDao();
 		c.addCost(cost);
 		response.sendRedirect("find.costmain");
+		}
+	}
+	
+
+	private void toFeeEdit(HttpServletRequest request, HttpServletResponse response) {
+		System.out.println(request.getParameter("costID"));
+	
 	}
 	
 }

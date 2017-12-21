@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
@@ -7,8 +8,14 @@
         <title>达内－NetCTOSS</title>
         <link type="text/css" rel="stylesheet" media="all" href="styles/global.css" />
         <link type="text/css" rel="stylesheet" media="all" href="styles/global_color.css" />
+         <script src="js/jquery-1.11.1.js"></script>
         <script language="javascript" type="text/javascript">
-            //保存结果的提示
+        	$(function(){
+        	  if(${isExit}){
+        		  window.alert("资费名称已存在，请重新输入");
+        	  }
+       		 })
+            /* //保存结果的提示
             function showResult() {
                 showResultDiv(true);
                 window.setTimeout("showResultDiv(false);", 3000);
@@ -19,7 +26,7 @@
                     divResult.style.display = "block";
                 else
                     divResult.style.display = "none";
-            }
+            } */
 
             //切换资费类型
             function feeTypeChange(type) {
@@ -80,7 +87,7 @@
         <!--导航区域结束-->
         <!--主要区域开始-->
         <div id="main">            
-            <div id="save_result_info" class="save_fail">保存失败，资费名称重复！</div>
+            <!-- <div id="save_result_info" class="save_fail">保存失败，资费名称重复！</div> -->
             <form action="feeAdd.costmain" method="post" class="main_form">
                 <div class="text_info clearfix"><span>资费名称：</span></div>
                 <div class="input_info">
@@ -131,9 +138,8 @@
         </div>
         <!--主要区域结束-->
         <div id="footer">
-            <span>[源自北美的技术，最优秀的师资，最真实的企业环境，最适用的实战项目]</span>
-            <br />
-            <span>版权所有(C)加拿大达内IT培训集团公司 </span>
+            <span>[熟悉MVC模式]</span>
+           
         </div>
     </body>
 </html>
