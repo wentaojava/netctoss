@@ -9,7 +9,7 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
-  
+  <!--资费处理的servlet  -->
   <servlet>
   	<servlet-name>costMainServlet</servlet-name>
   	<servlet-class>Servlets.costMainServlet</servlet-class>
@@ -17,5 +17,14 @@
   <servlet-mapping>
   	<servlet-name>costMainServlet</servlet-name>
   	<url-pattern>*.costmain</url-pattern>
+  </servlet-mapping>
+ <!--登录处理的servlet --> 
+  <servlet>
+  	<servlet-name>loginServlet</servlet-name>
+  	<servlet-class>Servlets.loginServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>loginServlet</servlet-name>
+  	<url-pattern>*.loginmain</url-pattern>
   </servlet-mapping>
 </web-app>
