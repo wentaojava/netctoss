@@ -27,4 +27,18 @@
   	<servlet-name>loginServlet</servlet-name>
   	<url-pattern>*.loginmain</url-pattern>
   </servlet-mapping>
+  
+  <!--配置错误页面，tomcat捕获异常时转发至错误页面  -->
+  <error-page>
+  	<error-code>404</error-code>
+  	<location>/WEB-INF/error.jsp</location>
+  </error-page>
+   <error-page>
+  	<error-code>405</error-code>
+  	<location>/WEB-INF/error.jsp</location>
+  </error-page>
+   <error-page>
+  	<error-code>500</error-code>
+  	<location>/WEB-INF/error.jsp</location>
+  </error-page>
 </web-app>

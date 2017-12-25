@@ -25,7 +25,7 @@ public class loginServlet extends HttpServlet {
 		if(servletPath.equals("/loginCheck.loginmain")) {
 		    loginCheck(request,response);
 	    } else if(servletPath.equals("/login.loginmain")){
-	    	boolean flag=false;
+	    	boolean flag=true;
 	    	 request.setAttribute("result", flag);
 	    	request.getRequestDispatcher("WEB-INF/login.jsp").forward(request, response);
 	    }
