@@ -6,6 +6,7 @@ package Servlets;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -49,7 +50,11 @@ public class loginServlet extends HttpServlet {
 	     userDao d=new userDao();
 	     boolean result=d.checkUser(name, pwd);
 	     if(result) {
-	    	 response.sendRedirect("index.html");
+	    	 Cookie user_name_cookie=new Cookie("user_name",name);
+	    	 user_name_cookie.setPath("/netctoss");
+	    	 response.addCookie(user_name_cookie);
+	    	 //response.sendRedirect("index.html");
+	    	request.getRequestDispatcher("WEB-INF/index.jsp").forward(request, response);
 	     }else {
 	    	 request.setAttribute("result", result);
 	    	 request.getRequestDispatcher("WEB-INF/login.jsp").forward(request, response);

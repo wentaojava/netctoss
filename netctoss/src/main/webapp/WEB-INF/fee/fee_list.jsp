@@ -58,8 +58,7 @@
     <body>
         <!--Logo区域开始-->
         <div id="header">
-            <img src="images/logo.png" alt="logo" class="left"/>
-            <a href="#">[退出]</a>            
+               <%@include file="../logo.jsp"%>      
         </div>
         <!--Logo区域结束-->
         <!--导航区域开始-->

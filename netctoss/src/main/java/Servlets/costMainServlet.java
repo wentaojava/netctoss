@@ -4,9 +4,11 @@
 package Servlets;
 
 import java.io.IOException;
+import java.net.URLDecoder;
 import java.util.List;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,6 +23,7 @@ import Entity.Cost;
 public class costMainServlet extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	
 		String servletPath=request.getServletPath();
 	     //System.out.println(servletPath);
 		if(servletPath.equals("/find.costmain")) {
