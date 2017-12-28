@@ -32,17 +32,22 @@
                 </tr>
                 <tr>
                     <td class="login_info">验证码：</td>
-                    <td class="width70"><input name="" type="text" class="width70" /></td>
-                    <td><img src="images/valicode.jpg" alt="验证码" title="点击更换" /></td>  
+                    <td class="width70"><input name="code" type="text" class="width70" /></td>
+                    <td><img src="getImag.loginmain" alt="验证码" title="点击更换" 
+                    onclick="this.setAttribute('src','getImag.loginmain?x='+Math.random())"/></td>  
                     <td><span class="required"></span></td>              
                 </tr>            
                 <tr>
                     <td></td>
                     <td class="login_button" colspan="2">
-                        <!-- <a href="index.html"><img src="images/login_btn.png" /></a> -->
-                        <input type = "image" name = "" src = "images/login_btn.png" onclick ="document.formName.submit()"/>
+                       <!-- 
+                    			表单提交的方式:
+                    			1.点击submit按钮,触发表单的onsubmit事件
+                    			2.通过js调用表单的submit()
+                    		 -->
+                        <a href="javascript:document.forms[0].submit();"><img src="images/login_btn.png" /></a>
                     </td>    
-                    <td><span class="required"></span></td>                
+                    <td><span class="required">${error }</span></td>                  
                 </tr>
             </table>
             </form>

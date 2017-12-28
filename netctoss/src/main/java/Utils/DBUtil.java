@@ -1,4 +1,4 @@
-package DBUtil;
+package Utils;
 
 import org.apache.commons.dbcp.BasicDataSource;
 
@@ -7,14 +7,14 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Properties;
 
-/**类的描述：
+/**类的描述�?
  *利用连接池提供数据库连接
  * @author wentao
  * @time Create in 15:01 2017/11/3 0003
  * @copyright Wuxi ,Ltd.copyright 2015-2025
  */
 public class DBUtil {
-    //连接池对象-由dbcp提供
+    //连接池对�?-由dbcp提供
     private static BasicDataSource ds;
     //读取配置文件
     static {
@@ -28,7 +28,7 @@ public class DBUtil {
             String  password=properties.getProperty("dbPassword");
             String  initsize=properties.getProperty("initsize");
             String  maxsize=properties.getProperty("maxsize");
-            //创建连接池
+            //创建连接�?
             ds=new BasicDataSource();
             //设置参数
             ds.setDriverClassName(driverStr);
@@ -40,7 +40,7 @@ public class DBUtil {
         }catch (IOException e) {
             e.printStackTrace();
             //抛出异常
-            throw new RuntimeException("读取配置文件失败！",e);
+            throw new RuntimeException("读取配置文件失败�?",e);
       }
     }
 
@@ -66,7 +66,7 @@ public class DBUtil {
                 conn.rollback();
             } catch (SQLException e) {
                 e.printStackTrace();
-                throw new RuntimeException("回滚事务失败！",e);
+                throw new RuntimeException("回滚事务失败�?",e);
             }
         }
     }

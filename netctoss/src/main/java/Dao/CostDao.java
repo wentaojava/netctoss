@@ -9,8 +9,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import DBUtil.DBUtil;
 import Entity.Cost;
+import Utils.DBUtil;
 /**
  * 资费信息方法类
  * @author wentao
